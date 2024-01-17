@@ -1,0 +1,51 @@
+.container {
+  border: 1px solid grey;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  position: relative;
+  margin-bottom: 2rem;
+  color: white;
+  transition: border-color 0.3s;
+}
+
+.container:focus-within,
+.container .input:focus {
+  border-color: #646cff;
+}
+
+.container .label {
+  color: #cccccc;
+  font-size: 15px;
+  padding-left: 10px;
+  position: absolute;
+  top: 13px;
+  transition: 0.1s;
+  pointer-events: none;
+}
+
+.input {
+  width: 280px;
+  height: 45px;
+  border: none;
+  outline: none;
+  padding: 0px 7px;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 15px;
+  background-color: transparent;
+}
+
+.input:focus {
+  color: #fff;
+}
+
+.container .input:active ~ .label,
+.container .input:focus ~ .label {
+  color: #ffffff;
+
+  transition: 0.2s;
+  padding-left: 2px;
+  transform: translateY(-35px);
+}

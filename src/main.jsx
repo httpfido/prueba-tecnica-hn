@@ -9,7 +9,7 @@ import AuthProvider from "./auth/AuthProvider.jsx";
 import Login from "./routes/Login.jsx";
 
 const router = createBrowserRouter([
-  { path: "/", element: <Login /> },
+  { path: "/", element: <App /> },
   {
     path: "/dashboard",
     element: <ValidateRoute />,
