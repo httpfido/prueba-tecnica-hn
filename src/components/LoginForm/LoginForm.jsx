@@ -37,7 +37,7 @@ function LoginForm() {
           Contraseña
         </label>
       </div>
-      <button>Login</button>
+      <button>Iniciar sesión</button>
     </form>
   );
 }

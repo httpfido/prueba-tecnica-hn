@@ -6,6 +6,7 @@ import { Navigate } from "react-router-dom";
 function App() {
   const auth = useAuth();
 
+  console.log(auth.isAuthenticated);
   if (auth.isAuthenticated) {
     return <Navigate to="/dashboard" />;
   }
