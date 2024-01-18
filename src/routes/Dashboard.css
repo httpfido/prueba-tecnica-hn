@@ -24,7 +24,9 @@
   width: 50%;
   padding: 0 1rem;
 }
-
+.flex {
+  display: flex;
+}
 @media screen and (max-width: 1000px) {
   .main-container {
     flex-direction: column;

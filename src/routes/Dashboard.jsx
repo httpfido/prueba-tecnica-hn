@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../auth/AuthProvider";
-import { API_URL } from "../auth/AuthConstants";
-import axios from "axios";
-
+import { fetchTaskAndTest } from "../adapters/fetch";
 import "./Dashboard.css";
 
 function Dashboard() {
@@ -11,56 +9,8 @@ function Dashboard() {
   const [tests, setTests] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  async function fetchTasks() {
-    try {
-      const accessToken = auth.getAccessToken();
-      const response = await axios.post(
-        `${API_URL}/ats/tareas`,
-        { idUsuario: auth.getUser().id_usuario },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: accessToken,
-          },
-        }
-      );
-
-      if (response.status === 200) {
-        setTasks(response.data);
-      }
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-      console.error(error);
-    }
-  }
-  async function fetchTests() {
-    try {
-      const accessToken = auth.getAccessToken();
-      const response = await axios.post(
-        `${API_URL}/ats/evaluaciones`,
-        { idUsuario: auth.getUser().id_usuario },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: accessToken,
-          },
-        }
-      );
-
-      if (response.status === 200) {
-        setTests(response.data);
-      }
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-      console.error(error);
-    }
-  }
-
   useEffect(() => {
-    fetchTasks();
-    // fetchTests();
+    fetchTaskAndTest(auth, setTasks, setTests, setIsLoading);
   }, []);
 
   return (

@@ -9,27 +9,27 @@ export default function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorResponse, setErrorResponse] = useState("");
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
   const auth = useAuth();
 
-  function handleChange(e) {
-    const { name, value } = e.target;
-    if (name === "username") {
-      setUsername(value);
-    }
-    if (name === "password") {
-      setPassword(value);
-    }
-  }
-
   async function handleSubmit(e) {
     e.preventDefault();
+    setIsFormSubmitted(true);
+
+    if (!username || !password) {
+      // valido que ambos campos estén completos
+      setErrorResponse("Por favor, completa ambos campos.");
+      return;
+    }
+
     try {
       const response = await fetch(`${API_URL}/users/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
       });
+
       if (response.ok) {
         const json = await response.json();
         console.log(json);
@@ -37,19 +37,23 @@ export default function LoginForm() {
         if (json.token) {
           auth.saveUser(json);
         }
+      } else if (response.status === 401) {
+        // muestro error si las credenciales son incorrectas
+        setErrorResponse("Nombre de usuario o contraseña incorrecto.");
       } else {
         const json = await response.json();
-
         setErrorResponse(json.error);
       }
     } catch (error) {
       console.log(error);
     }
   }
-  // si el usuario está autenticado, redirige al dashboard del usuario
+
+  // si el usuario está autenticado, redirijo al dashboard del usuario
   if (auth.isAuthenticated) {
     return <Navigate to="/dashboard" />;
   }
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -84,6 +88,9 @@ export default function LoginForm() {
           Contraseña
         </label>
       </div>
+      {isFormSubmitted && errorResponse && (
+        <p className="error-message">{errorResponse}</p>
+      )}
       <button>Iniciar sesión</button>
     </form>
   );
