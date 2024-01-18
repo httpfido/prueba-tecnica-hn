@@ -60,7 +60,7 @@ function Dashboard() {
 
   useEffect(() => {
     fetchTasks();
-    fetchTests();
+    // fetchTests();
   }, []);
 
   return (

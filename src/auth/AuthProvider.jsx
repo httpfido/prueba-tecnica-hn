@@ -19,6 +19,7 @@ export function AuthProvider({ children }) {
   }
 
   function saveUser(userData) {
+    console.log("saveUser", userData);
     setAccessTokenAndRefreshToken(userData.token);
     setUser(userData.formattedResult[0]);
     setIsAuthenticated(true);
