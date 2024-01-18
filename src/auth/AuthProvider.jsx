@@ -18,15 +18,19 @@ export function AuthProvider({ children }) {
     return accessToken;
   }
 
+  function signout() {
+    setAccessToken("");
+    setUser(undefined);
+    setIsAuthenticated(false);
+  }
+
   function saveUser(userData) {
-    console.log("saveUser", userData);
     setAccessTokenAndRefreshToken(userData.token);
     setUser(userData.formattedResult[0]);
     setIsAuthenticated(true);
   }
 
   function setAccessTokenAndRefreshToken(accessToken) {
-    console.log("setAccessTokenAndRefreshToken", accessToken);
     setAccessToken(accessToken);
     setIsAuthenticated(true);
   }
@@ -43,6 +47,7 @@ export function AuthProvider({ children }) {
         setAccessTokenAndRefreshToken,
         saveUser,
         getUser,
+        signout,
       }}
     >
       {children}

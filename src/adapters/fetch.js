@@ -1,15 +1,13 @@
 import { API_URL } from "../auth/AuthConstants";
 import axios from "axios";
 
-export async function fetchTasks(auth, setTasks, setIsLoading) {
+export async function fetchTaskAndTest(auth, setTasks, setTests, setIsLoading) {
   try {
     const accessToken = auth.getAccessToken();
-    console.log("accessToken", accessToken, {
-      idUsuario: auth.getUser().id_usuario,
-    });
-    const response = await axios.post(
+    const idUsuario = auth.getUser().id_usuario;
+    const responseTasks = await axios.post(
       `${API_URL}/ats/tareas`,
-      { idUsuario: auth.getUser().id_usuario },
+      { idUsuario },
       {
         headers: {
           "Content-Type": "application/json",
@@ -17,36 +15,25 @@ export async function fetchTasks(auth, setTasks, setIsLoading) {
         },
       }
     );
-
-    if (response.status === 200) {
-      setTasks(response.data);
+    const responseTests = await axios.post(
+      `${API_URL}/ats/evaluaciones`,
+      { idUsuario },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: accessToken,
+        },
+      }
+    );
+    if (responseTasks.status === 200) {
+      setTasks(responseTasks.data);
+    }
+    if (responseTests.status === 200) {
+      setTests(responseTests.data);
     }
     setIsLoading(false);
   } catch (error) {
     setIsLoading(false);
     console.error(error);
-  }
-}
-export async function fetchTests(auth, setTests, setIsLoading) {
-  try {
-    const response = await fetch(`${API_URL}/ats/evaluaciones`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `${auth.getAccessToken()}`,
-      },
-      body: JSON.stringify({ idUsuario: auth.getUser().id_usuario }),
-    });
-    if (response.ok) {
-      const json = await response.json();
-      setTests(json);
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-      console.log("respuesta sin json token");
-    }
-  } catch (error) {
-    setIsLoading(false);
-    console.log(error);
   }
 }

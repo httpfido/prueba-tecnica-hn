@@ -1,7 +1,6 @@
 .property {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  /* gap: 16px; */
 }
 .task-container {
   display: flex;
@@ -10,7 +9,7 @@
 }
 .content {
   display: flex;
-  max-width: 100%; /* Establecer el máximo ancho al 50% de la grilla */
+  max-width: 100%;
   box-sizing: border-box;
 }
 .line {
@@ -19,17 +18,12 @@
 .main-container {
   display: flex;
   gap: 1rem;
+  flex-direction: column;
 }
 .w-50 {
-  width: 50%;
+  width: 100%;
   padding: 0 1rem;
 }
-
-@media screen and (max-width: 1000px) {
-  .main-container {
-    flex-direction: column;
-  }
-  .w-50 {
-    width: 100%;
-  }
+.flex {
+  display: flex;
 }
