@@ -26,7 +26,6 @@
 }
 
 .input {
-  width: 280px;
   height: 45px;
   border: none;
   outline: none;
@@ -41,6 +40,7 @@
   color: #fff;
 }
 
+.container.active .label,
 .container .input:active ~ .label,
 .container .input:focus ~ .label {
   color: #ffffff;

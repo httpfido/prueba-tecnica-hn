@@ -5,8 +5,7 @@ import App from "./App.jsx";
 import Dashboard from "./routes/Dashboard.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ValidateRoute from "./routes/ValidateRoute.jsx";
-import AuthProvider from "./auth/AuthProvider.jsx";
-import Login from "./routes/Login.jsx";
+import { AuthProvider } from "./auth/AuthProvider.jsx";
 
 const router = createBrowserRouter([
   { path: "/", element: <App /> },

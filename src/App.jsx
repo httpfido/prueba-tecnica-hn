@@ -1,15 +1,7 @@
 import "./App.css";
 import LoginForm from "./components/LoginForm/LoginForm";
-import { useAuth } from "./auth/AuthProvider";
-import { Navigate } from "react-router-dom";
 
 function App() {
-  const auth = useAuth();
-
-  console.log(auth.isAuthenticated);
-  if (auth.isAuthenticated) {
-    return <Navigate to="/dashboard" />;
-  }
   return (
     <>
       <h1 className="logo react">Prueba de React</h1>

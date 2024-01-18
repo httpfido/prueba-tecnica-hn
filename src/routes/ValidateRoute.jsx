@@ -3,5 +3,5 @@ import { useAuth } from "../auth/AuthProvider";
 
 export default function ValidateRoute() {
   const auth = useAuth();
-  return auth ? <Outlet /> : <Navigate to="/login" />;
+  return auth.isAuthenticated ? <Outlet /> : <Navigate to="/" />;
 }
