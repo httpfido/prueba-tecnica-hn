@@ -32,10 +32,10 @@ export default function LoginForm() {
 
       if (response.ok) {
         const json = await response.json();
-        console.log(json);
 
         if (json.token) {
           auth.saveUser(json);
+          sessionStorage.setItem("token", json.token);
         }
       } else if (response.status === 401) {
         // muestro error si las credenciales son incorrectas
